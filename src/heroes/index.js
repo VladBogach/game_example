@@ -1,1 +1,2 @@
-export { default as Hero } from "./Hero";
+export { default as Axe } from "./Axe";
+export { default as Luna } from "./Luna";

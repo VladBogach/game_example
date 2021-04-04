@@ -1,21 +1,33 @@
 class Unit {
-  constructor(icon) {
+  constructor({
+    icon,
+    health,
+    damage,
+    defense,
+    atackSpeed,
+    lvl,
+    maxLvl,
+    hpPerLvl,
+    dmgPerLvl,
+    dfsPerLvl,
+    asPerLvl
+  }) {
     //stats
-    this.health = 500;
-    this.damage = 70;
-    this.defense = 30;
-    this.atackSpeed = 1;
+    this.health = health || 500;
+    this.damage = damage || 70;
+    this.defense = defense || 30;
+    this.atackSpeed = atackSpeed || 1;
 
     //animation
     this.icon = icon;
 
     //lvl
-    this.lvl = 1;
-    this.maxLvl = 25;
-    this.hpPerLvl = 0.06;
-    this.dmgPerLvl = 0.03;
-    this.dfsPerLvl = 0.03;
-    this.asPerLvl = 0.01;
+    this.lvl = lvl || 1;
+    this.maxLvl = maxLvl || 25;
+    this.hpPerLvl = hpPerLvl || 0.06;
+    this.dmgPerLvl = dmgPerLvl || 0.03;
+    this.dfsPerLvl = dfsPerLvl || 0.03;
+    this.asPerLvl = asPerLvl || 0.01;
   }
 
   lvlUp() {
@@ -39,9 +51,9 @@ class Unit {
 class Creep extends Unit {}
 
 class Hero extends Unit {
-  constructor({ name } = {}) {
-    super();
-    this.name = name;
+  constructor(params = {}) {
+    super(params);
+    this.name = params.name;
   }
 }
 

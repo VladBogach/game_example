@@ -1,10 +1,14 @@
-import { Hero } from "./heroes";
+import { Hero } from "./UI";
+import { Axe, Luna } from "./heroes";
+
+const heroes = [Axe, Luna];
 
 export default function App() {
   return (
     <div className="App">
-      <Hero name="Axe" />
-      <Hero name="Luna" hp={400} />
+      {heroes.map((hero) => (
+        <Hero {...hero} />
+      ))}
     </div>
   );
 }
