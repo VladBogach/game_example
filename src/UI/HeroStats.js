@@ -1,15 +1,11 @@
 import { Table } from "antd";
 
-const HeroStats = ({ hero, forceUpdate }) => {
+const HeroStats = ({ hero, lvlUp }) => {
   const dataSource = [
     {
       key: "1",
-      name: hero.name,
-      dmg: hero.damage,
-      hp: hero.health,
-      ds: hero.defense,
-      lvl: hero.lvl,
-      as: hero.atackSpeed
+      ...hero,
+      health: hero.health
     }
   ];
 
@@ -21,42 +17,39 @@ const HeroStats = ({ hero, forceUpdate }) => {
     },
     {
       title: "Dmg",
-      dataIndex: "dmg",
-      key: "dmg"
+      dataIndex: "damage",
+      key: "damage"
     },
     {
       title: "Hp",
-      dataIndex: "hp",
-      key: "hp"
+      dataIndex: "health",
+      key: "health"
+    },
+    {
+      title: "lack",
+      dataIndex: "lack",
+      key: "lack"
     },
     {
       title: "Lvl",
-      dataIndex: "lvl",
-      key: "lvl",
+      dataIndex: "level",
+      key: "level",
 
       render: (lvl) => (
         <>
-          <text>{lvl}</text>{" "}
-          <a
-            onClick={() => {
-              hero.lvlUp();
-              forceUpdate();
-            }}
-          >
-            lvlUp
-          </a>
+          <>{lvl}</> <a onClick={lvlUp}>lvlUp</a>
         </>
       )
     },
     {
       title: "Ds",
-      dataIndex: "ds",
-      key: "ds"
+      dataIndex: "defense",
+      key: "defense"
     },
     {
       title: "As",
-      dataIndex: "as",
-      key: "as"
+      dataIndex: "atackSpeed",
+      key: "atackSpeed"
     }
   ];
   return <Table columns={columns} dataSource={dataSource} />;

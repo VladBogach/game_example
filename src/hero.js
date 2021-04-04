@@ -10,13 +10,18 @@ class Unit {
     hpPerLvl,
     dmgPerLvl,
     dfsPerLvl,
-    asPerLvl
+    asPerLvl,
+    maxHealth,
+    lack,
+    lackPerLvl
   }) {
     //stats
+    this.maxHealth = maxHealth || 500;
     this.health = health || 500;
     this.damage = damage || 70;
     this.defense = defense || 30;
     this.atackSpeed = atackSpeed || 1;
+    this.lack = lack || 1;
 
     //animation
     this.icon = icon;
@@ -27,7 +32,20 @@ class Unit {
     this.hpPerLvl = hpPerLvl || 0.06;
     this.dmgPerLvl = dmgPerLvl || 0.03;
     this.dfsPerLvl = dfsPerLvl || 0.03;
-    this.asPerLvl = asPerLvl || 0.01;
+    this.asPerLvl = asPerLvl || 0.1; //atcks per sec
+    this.lackPerLvl = lackPerLvl || 0.08;
+  }
+
+  set health(value) {
+    if (value > 0) this._health = value;
+    else {
+      this._health = 0;
+      console.log("died");
+    }
+  }
+
+  get health() {
+    return this._health;
   }
 
   lvlUp() {
@@ -37,14 +55,30 @@ class Unit {
     this.atackSpeed = Number(
       (this.atackSpeed + this.atackSpeed * this.asPerLvl).toFixed(2)
     );
-    this.health += Math.round(this.health * this.hpPerLvl);
     this.damage += Math.round(this.damage * this.dmgPerLvl);
     this.defense += Math.round(this.defense * this.dfsPerLvl);
+
+    this.maxHealth += Math.round(this.maxHealth * this.hpPerLvl);
+    if (this.health < this.maxHealth)
+      this.health += Math.round(this.health * this.hpPerLvl);
+    this.lack = Number((this.lack + this.lack * this.lackPerLvl).toFixed(2));
+  }
+
+  calcAs() {
+    return (1 / this.atackSpeed) * 1000;
   }
 
   takeDmg(dmg) {
-    const damage = 1 - this.defense;
-    this.health -= dmg * damage > 0 ? damage : 0;
+    const resist = (100 - this.defense) / 100;
+    const trueDamage = dmg * resist;
+    console.log(`Hero: ${this.name}, taked ${trueDamage} damage from ${dmg}`);
+    this.health = this.health - trueDamage;
+
+    return this.isAlive();
+  }
+
+  isAlive() {
+    return this.health > 0;
   }
 }
 
