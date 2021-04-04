@@ -1,7 +1,7 @@
 import { Hero } from "./UI";
 import { Axe, Luna } from "./heroes";
-import { Col, Row } from "@qonsoll/react-design";
-import { useCallback, useEffect, useState } from "react";
+import { Box, Col, Row } from "@qonsoll/react-design";
+import { useCallback, useState } from "react";
 
 export default function App() {
   return (
@@ -53,25 +53,60 @@ const Battle = () => {
 
       atack(hero.calcAs(), hero, enemy);
     });
-    // }
     console.log(winner);
   };
 
   return (
-    <Row>
+    <Row v="center" h="center">
       <Col cw="auto" mr={2}>
-        <Hero {...Axe} actions={actions} setActions={setActions} />{" "}
+        <Box
+          width="150px"
+          height="150px"
+          borderWidth="2px"
+          borderStyle="dotted"
+          borderColor="black"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Hero {...Axe} actions={actions} setActions={setActions} />{" "}
+        </Box>
       </Col>
-      <Col cw="auto">
-        <Hero
-          {...Luna}
-          actions={actions}
-          setActions={setActions}
-          imgStyle={{ transform: "scale(-1, 1)" }}
-        />
+      <Col mr={2} cw="auto">
+        <Box
+          width="150px"
+          height="150px"
+          borderWidth="2px"
+          borderStyle="dotted"
+          borderColor="black"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          vs
+        </Box>
+      </Col>
+      <Col mr={2} cw="auto">
+        <Box
+          width="150px"
+          height="150px"
+          borderWidth="2px"
+          borderStyle="dotted"
+          borderColor="black"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Hero
+            {...Luna}
+            actions={actions}
+            setActions={setActions}
+            imgStyle={{ transform: "scale(-1, 1)" }}
+          />
+        </Box>
       </Col>
       {actions?.AxeActions && (
-        <Col cw={12}>
+        <Col cw={12} mt={4}>
           <button onClick={startBattle}>start battle</button>
         </Col>
       )}
